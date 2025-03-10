@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "LeetDoc Scraper",
+  "version": "1.0",
+  "description": "Scrapes LeetCode problem and solution data for spaced repetition.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://leetcode.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["leetcode.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
