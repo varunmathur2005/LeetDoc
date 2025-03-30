@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LeetDoc Metadata</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 16px;
+      background-color: #f5f5f5;
+      width: 320px;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 16px;
+      padding: 10px;
+      width: 100%;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>📝 Add Metadata</h2>
+  <form id="metadataForm">
+    <label>Difficulty (1–5):</label>
+    <select id="difficulty">
+      <option value="1">1 - Very Easy</option>
+      <option value="2">2 - Easy</option>
+      <option value="3">3 - Medium</option>
+      <option value="4">4 - Hard</option>
+      <option value="5">5 - Very Hard</option>
+    </select>
+
+    <label>Trick (Optional):</label>
+    <input type="text" id="trick" placeholder="e.g., Edge case with 0s" />
+
+    <label>Time Complexity:</label>
+    <input type="text" id="timeComplexity" placeholder="e.g., O(n log n)" />
+
+    <label>Space Complexity:</label>
+    <input type="text" id="spaceComplexity" placeholder="e.g., O(1)" />
+
+    <label>Data Structures Used:</label>
+    <input type="text" id="dataStructures" placeholder="e.g., HashMap, Stack" />
+
+    <label>Time Taken:</label>
+    <input type="text" id="timeTaken" placeholder="e.g., 20 minutes" />
+
+    <label>Notes:</label>
+    <textarea id="notes" rows="3" placeholder="Any key insights or mistakes to avoid..."></textarea>
+
+    <label>Pattern:</label>
+    <input type="text" id="pattern" placeholder="e.g., Sliding Window" />
+
+    <button type="submit">📤 Submit</button>
+  </form>
+
+  <script src="popup.js"></script>
+</body>
+</html>

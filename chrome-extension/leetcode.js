@@ -21,28 +21,15 @@ const PROBLEM_URL_REGEX = /^https:\/\/leetcode\.com\/problems\/[^/]+\/?(descript
 
     /**
      * Captures the problem details (title, statement, difficulty, topics)
-     * and stores them in localStorage (leetdoc_tempProblem).
+     * and stores them temporarily.
      */
     function captureProblem() {
-        // Title is in an anchor like: <a href="/problems/two-sum/">1. Two Sum</a>
         const titleSel = document.querySelector('a[href^="/problems/"][class*="no-underline"]')?.innerText || "Unknown";
-
-        // Difficulty is in a div whose class includes "text-difficulty-"
         const difficultyEl = document.querySelector('.flex.gap-1 div[class*="text-difficulty-"]');
         const difficultySel = difficultyEl?.innerText || "Unknown";
-
-        // Problem statement container
         const statementSel = document.querySelector('.elfjS[data-track-load="description_content"]')?.innerText || "No statement found";
-
-        // Topics (optional)
         const topicsSel = Array.from(document.querySelectorAll(".topic-tag")).map(el => el.innerText) || ["Uncategorized"];
-
-        // Problem URL – full URL or just the path (your choice)
-        // For the full URL:
         const problemUrl = window.location.href;
-
-        // Alternatively, if you only want the path (e.g. "/problems/two-sum"):
-        // const problemUrl = new URL(window.location.href).pathname;
 
         const tempProblem = {
             title: titleSel,
@@ -50,28 +37,21 @@ const PROBLEM_URL_REGEX = /^https:\/\/leetcode\.com\/problems\/[^/]+\/?(descript
             difficulty: difficultySel,
             topics: topicsSel,
             url: problemUrl
-            // solution + timestamp will be added upon "Accepted"
         };
 
-        localStorage.setItem("leetdoc_tempProblem", JSON.stringify(tempProblem));
+        sessionStorage.setItem("leetdoc_tempProblem", JSON.stringify(tempProblem));
         console.log("📥 Problem captured (temp):", tempProblem);
     }
 
-
-
     /**
-     * Checks if we see an "Accepted" label (.text-green-s).
-     * If so, attaches the user's solution to the temp problem
-     * and appends it to 'leetdoc_problems' in localStorage.
-     * Returns true if a solution was successfully attached, false otherwise.
+     * Checks for the "Accepted" label and captures the full problem data.
+     * Opens the modal-ui app with encoded data in the URL.
      */
     function attachSolutionIfAccepted() {
-        // Is "Accepted" label present?
         const acceptedTag = document.querySelector(".text-green-s");
         if (!acceptedTag) return false;
 
-        // Retrieve temp problem
-        const tempProblemRaw = localStorage.getItem("leetdoc_tempProblem");
+        const tempProblemRaw = sessionStorage.getItem("leetdoc_tempProblem");
         if (!tempProblemRaw) {
             console.log("✅ 'Accepted' found, but no temp problem stored—nothing to attach.");
             return false;
@@ -82,34 +62,24 @@ const PROBLEM_URL_REGEX = /^https:\/\/leetcode\.com\/problems\/[^/]+\/?(descript
         const tempProblem = JSON.parse(tempProblemRaw);
         const userSolution = document.querySelector(".view-lines")?.innerText || "No solution found";
 
-        // Final problem object
         const finalProblemData = {
             ...tempProblem,
             solution: userSolution,
             timestamp: new Date().toISOString()
         };
 
-        // Save permanently to 'leetdoc_problems'
-        const storedProblems = JSON.parse(localStorage.getItem("leetdoc_problems") || "[]");
-        storedProblems.push(finalProblemData);
-        localStorage.setItem("leetdoc_problems", JSON.stringify(storedProblems));
-
         console.log("📋 Final Problem Data:", finalProblemData);
-        console.log("💾 Appended to 'leetdoc_problems' array in localStorage!");
 
-        // Remove the temp problem so it won't be re-used
-        localStorage.removeItem("leetdoc_tempProblem");
+        // Encode and send to modal-ui via URL
+        const encoded = encodeURIComponent(btoa(JSON.stringify(finalProblemData)));
+        window.open(`http://localhost:3000?data=${encoded}`, "_blank");
+
         return true;
     }
 
-    /**
-     * Observes the DOM for new nodes.
-     * If we detect an "Accepted" label, attach the solution and stop observing.
-     */
     function startAcceptanceObserver() {
         const observer = new MutationObserver(() => {
             if (attachSolutionIfAccepted()) {
-                // Stop observing once we attach a solution
                 observer.disconnect();
             }
         });
