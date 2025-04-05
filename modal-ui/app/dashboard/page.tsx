@@ -61,7 +61,7 @@ export default function Dashboard() {
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-[#f0f4f8] to-[#e2e8f0] font-sans">
       <h1 className="text-4xl font-extrabold mb-8 text-gray-900 tracking-tight">
-        🌟 LeetDoc Dashboard
+        🌟 LeetDoc DB
       </h1>
 
       {loading ? (

@@ -65,8 +65,7 @@ export default function Home() {
       console.error("❌ Supabase insert error:", error);
       alert("❌ Failed to upload");
     } else {
-      alert("✅ Uploaded to Supabase!");
-      window.close();
+      window.location.href = "/dashboard";
     }
   };
 
