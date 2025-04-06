@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ChatModal } from "@/components/ChatModel"; // Ensure this matches the named export
 
 interface Submission {
   id: number;
@@ -27,6 +28,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Submission | null>(null);
   const [editingNote, setEditingNote] = useState("");
+  const [chatOpen, setChatOpen] = useState(false); // New
 
   useEffect(() => {
     async function fetchData() {
@@ -159,7 +161,21 @@ export default function Dashboard() {
               </Button>
             </div>
           </div>
+
+          <div className="mt-6">
+            <Button variant="secondary" onClick={() => setChatOpen(true)}>
+              💬 Chat with LeetDoc AI
+            </Button>
+          </div>
         </div>
+      )}
+
+      {selected && (
+        <ChatModal
+          open={chatOpen}
+          onOpenChange={setChatOpen}
+          problem={selected}
+        />
       )}
     </div>
   );
