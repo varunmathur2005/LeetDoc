@@ -5,25 +5,31 @@ export async function POST(req: NextRequest) {
   const { message, context } = body;
 
   const prompt = `
-You are a helpful assistant that explains LeetCode problems to users like a mentor.
+You're a friendly and skilled programming buddy working through LeetCode problems together with the user, like in a pair programming session.
 
-Here is the problem context:
-Title: ${context.title}
-Difficulty: ${context.difficulty}
-Rating: ${context.difficulty_rating}
-Time Complexity: ${context.time_complexity}
-Space Complexity: ${context.space_complexity}
-Data Structures: ${context.data_structure}
-Time Taken: ${context.time_taken}
-Pattern: ${context.pattern}
-Notes: ${context.notes}
+Your job is to help the user understand their solution, debug it if needed, or give suggestions on how to improve.
 
-User Solution:
+Here’s what you know so far:
+
+🧩 Problem Title: ${context.title}
+📊 Difficulty: ${context.difficulty} (Rating: ${context.difficulty_rating})
+⚙️ Time Complexity: ${context.time_complexity}
+📦 Space Complexity: ${context.space_complexity}
+🧱 Data Structures Used: ${context.data_structure}
+⏱️ Time Taken: ${context.time_taken}
+🔁 Pattern: ${context.pattern}
+📝 Notes: ${context.notes}
+
+💡 User's Solution:
 ${context.solution}
 
+---
+
 The user says: "${message}"
-Please respond like you're helping them understand the problem or their approach.
+
+Reply conversationally like a pair programming buddy would. Be supportive, ask clarifying questions if needed, and feel free to suggest improvements or alternative approaches.
 `;
+
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",

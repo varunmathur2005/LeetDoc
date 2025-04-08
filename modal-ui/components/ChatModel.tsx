@@ -28,14 +28,19 @@ type ChatModalProps = {
 };
 
 export function ChatModal({ open, onOpenChange, problem }: ChatModalProps) {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<
+    { sender: "ai" | "user"; text: string }[]
+  >([]);
   const [input, setInput] = useState("");
   const chatRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (open) {
       setMessages([
-        `🤖 AI: Let's dive into "${problem.title}". Ask me anything about it!`,
+        {
+          sender: "ai",
+          text: `Hey! Let's review your solution for **"${problem.title}"** together. Feel free to ask questions like:\n\n- What does this line do?\n- Can we optimize this?\n- Are there alternative approaches?\n\nI'm ready when you are! 💻`,
+        },
       ]);
     }
   }, [open]);
@@ -49,7 +54,10 @@ export function ChatModal({ open, onOpenChange, problem }: ChatModalProps) {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMsg = `🧑 You: ${input}`;
+    const userMsg: { sender: "user"; text: string } = {
+      sender: "user",
+      text: input,
+    };
     setMessages((prev) => [...prev, userMsg]);
 
     const response = await fetch("/api/chat", {
@@ -61,27 +69,41 @@ export function ChatModal({ open, onOpenChange, problem }: ChatModalProps) {
     });
 
     const { response: reply } = await response.json();
-    setMessages((prev) => [...prev, `🤖 AI: ${reply}`]);
+
+    const aiMsg: { sender: "ai"; text: string } = {
+      sender: "ai",
+      text: reply,
+    };
+
+    setMessages((prev) => [...prev, aiMsg]);
     setInput("");
   };
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-full max-w-4xl h-[80vh] flex flex-col p-6">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
-            💬 LeetDoc AI Assistant
+            👩‍💻 Pair Program with LeetDoc AI
           </DialogTitle>
         </DialogHeader>
 
         <div
           ref={chatRef}
-          className="flex-1 overflow-y-auto bg-gray-50 rounded-lg p-4 mt-2 border border-gray-200 shadow-inner scroll-smooth"
+          className="flex-1 overflow-y-auto bg-muted rounded-lg p-4 mt-2 border border-gray-200 shadow-inner space-y-4 scroll-smooth"
         >
           {messages.map((msg, i) => (
-            <p key={i} className="whitespace-pre-wrap text-sm mb-3">
-              {msg}
-            </p>
+            <div
+              key={i}
+              className={`max-w-[80%] text-sm px-4 py-2 rounded-xl whitespace-pre-wrap ${
+                msg.sender === "ai"
+                  ? "bg-white text-gray-800 self-start"
+                  : "bg-blue-600 text-white self-end ml-auto"
+              }`}
+            >
+              {msg.text}
+            </div>
           ))}
         </div>
 
@@ -93,7 +115,7 @@ export function ChatModal({ open, onOpenChange, problem }: ChatModalProps) {
             className="resize-none min-h-[80px]"
           />
           <Button className="mt-2 w-full" onClick={sendMessage}>
-            🚀 Send
+            💬 Send Message
           </Button>
         </div>
       </DialogContent>
