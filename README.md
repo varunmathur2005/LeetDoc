@@ -1,81 +1,106 @@
-# 📘 LeetDoc
+# 🧠 LeetDoc
 
-**Your personal LeetCode AI assistant** — solve smarter, not harder. LeetDoc combines a beautiful dashboard, AI-powered explanations, and spaced repetition to help you master coding interviews.
+LeetDoc is your personal LeetCode companion — designed to help you **track**, **reflect**, and **master** your coding journey with ease. Powered by OpenAI and built with Next.js, Supabase, and shadcn/ui, this project transforms the way you analyze and retain problem-solving knowledge.
 
-> 🧠 Built with OpenAI GPT-4o, Supabase, shadcn/ui, and Next.js
-
----
-
-## 🎯 What is LeetDoc?
-
-LeetDoc is a productivity tool that transforms the way you solve and review LeetCode problems:
-
-- 📊 Track your problem-solving journey
-- 🤖 Get contextual AI feedback (like a pair programming buddy)
-- ⏳ Practice smarter with spaced repetition (SM-2 algorithm)
-- ✍️ Reflect on notes and patterns
-- ⚡ Lightning-fast UI powered by Next.js App Router & shadcn/ui
+<p align="center">
+  <a href="https://youtu.be/F4E10IIMkUA" target="_blank">
+    <img src="https://img.shields.io/badge/Watch%20Demo-YouTube-red?logo=youtube" />
+  </a>
+  <img src="https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F%20by%20Varun-blueviolet" />
+  <img src="https://img.shields.io/badge/License-MIT-green" />
+</p>
 
 ---
 
 ## ✨ Features
 
-### 🖥️ Interactive Dashboard  
-- Total problems solved — today, this week, this month, all time  
-- Clean, modern layout inspired by Socratica  
-- Dynamic activity cards and a motivational prompt based on spaced repetition
+- 📊 **Dashboard Overview** — Track total problems solved today, this week, this month, and all-time  
+- 🔁 **Spaced Repetition (SM-2)** — *(Coming Soon)* Personalized review prompts to reinforce learning  
+- 💬 **AI-Powered Pair Programming Chat** — Get contextual feedback and explanations on every submission  
+- 📝 **Submission Reflection** — Log time complexity, space complexity, pattern, and personal notes  
+- 🔍 **Searchable Submissions Table** — Quickly review your past work and refine your understanding  
+- 📦 **Modern UI** — Clean and elegant interface using shadcn/ui, Tailwind, and Recharts  
 
-### 📄 Submissions Viewer  
-- Expandable rows to view solution, notes, and AI insights  
-- Seamless UI/UX that matches the dashboard  
-- Click-to-expand, collapse & edit notes inline
+---
 
-### 🤖 Pair-Programming Chat Assistant  
-- Built using **GPT-4o**  
-- Remembers your solution & offers tailored advice  
-- Styled like a pair programming session (You 🧑 + AI 🤖)  
-- Smooth scroll + interactive code discussions
+## 🎥 Demo
 
-### 📅 Spaced Repetition (Coming Soon 🚧)  
-- Placeholder prompt already integrated  
-- Based on the **SM-2 algorithm**  
-- Will automatically suggest problems to review daily
+Watch the full walkthrough of LeetDoc on YouTube:  
+[![Watch the video](https://img.youtube.com/vi/F4E10IIMkUA/hqdefault.jpg)](https://youtu.be/F4E10IIMkUA)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Tool | Description |
-|------|-------------|
-| **Next.js 14** | App Router + TypeScript |
-| **Tailwind CSS** | Styling utility |
-| **shadcn/ui** | Beautiful component library |
-| **Supabase** | Backend-as-a-Service for storing submissions |
-| **OpenAI GPT-4o** | AI-powered chat and explanations |
-| **Recharts** | Visualizing problem-solving trends |
-| **Lucide Icons** | Minimal icon set |
+- **Framework**: Next.js (App Router)
+- **Backend**: Supabase (PostgreSQL)
+- **AI**: OpenAI GPT-4o
+- **UI**: TailwindCSS, shadcn/ui, Lucide, Recharts
+- **Auth & Storage**: Supabase Auth (if extended), Supabase Storage (if needed)
 
 ---
 
-## 📸 Screenshots
+## ⚙️ Getting Started
 
-### 🌟 Dashboard  
-![Dashboard](./screenshots/dashboard.png)
-
-### 📄 Submissions Table  
-![Submissions](./screenshots/submissions.png)
-
-### 🤝 Pair Programming Chat  
-![Chat](./screenshots/chat.png)
-
----
-
-## 🚀 Getting Started
-
-Clone the repo:
+### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/leetdoc.git
+git clone https://github.com/yourusername/leetdoc.git
 cd leetdoc
+```
+
+### 2. Install dependencies
+
+```bash
 npm install
+# or
+yarn install
+```
+
+### 3. Set up environment variables
+
+Create a `.env.local` file and add:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+### 4. Run the dev server
+
+```bash
 npm run dev
+```
+
+Go to `http://localhost:3000`
+
+---
+
+## 📌 Coming Soon
+
+- 🔁 Fully integrated SM-2 spaced repetition  
+- 🧠 Auto-scheduling of problem reviews  
+- 📥 CSV/JSON export of submission insights  
+- 📈 Progress tracking over weeks/months  
+
+---
+
+## 🙌 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to improve or build on.
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 💙 Made with love by [Varun Mathur](https://github.com/varunmathur0)
+
+If you find this helpful, consider ⭐ starring the repo and [subscribing to the YouTube demo](https://youtu.be/F4E10IIMkUA).
+
+---
+
